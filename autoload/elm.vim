@@ -115,7 +115,11 @@ fun! elm#Make(...)
 	echon "elm-make: " | echohl Identifier | echon "building ..."| echohl None
 
 	let filename = (a:0 == 0) ? expand("%") : a:1
-	let reports = system("elm-make --report=json " . filename . " --output=". g:elm_make_output_file)
+    let currpwd = system('pwd')
+    exe 'cd' g:elm_make_rootpath
+    let cmd_ = "elm-make --report=json " . g:elm_make_filepath_prefix . filename . " --output=". g:elm_make_output_file
+    let reports = system(cmd_)
+    exe 'cd' currpwd
 
 	let s:errors = []
 	let fixes = []
@@ -130,7 +134,7 @@ fun! elm#Make(...)
 				if g:elm_make_show_warnings == 0 && error.type == "warning"
 				else
 					call add(s:errors, error)
-					call add(fixes, {"filename": error.file,
+					call add(fixes, {"filename": substitute(error.file, g:elm_make_filepath_prefix, "", ""),
 								\"type": (error.type == "error") ? 'E' : 'W',
 								\"lnum": error.region.start.line,
 								\"col": error.region.start.column,

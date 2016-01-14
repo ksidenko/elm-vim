@@ -86,6 +86,8 @@ let g:elm_make_output_file = "elm.js"
 let g:elm_make_show_warnings = 0
 let g:elm_browser_command = ""
 let g:elm_detailed_complete = 0
+let g:elm_make_rootpath = ""
+let g:elm_make_filepath_prefix = ""
 ```
 
 ## Indentation

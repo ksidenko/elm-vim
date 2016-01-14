@@ -19,6 +19,14 @@ if !exists("g:elm_make_show_warnings")
 	let g:elm_make_show_warnings = 0
 endif
 
+if !exists("g:eml_make_rootpath")
+	let g:elm_make_rootpath = ""
+endif
+
+if !exists("g:eml_make_filepath_prefix")
+	let g:elm_make_filepath_prefix = ""
+endif
+
 setlocal omnifunc=elm#Complete
 
 setlocal comments=:--
